@@ -1,0 +1,15 @@
+import os
+
+Import ('env')
+
+env = env.Clone()
+
+headers = [
+                # Example - 
+                # 'mamac++/mamac++.hpp'
+          ]
+
+libraryHeaderInstall = env.Install ('$INCLUDEINSTALL/mamac++/', headers)
+
+Alias   ('header-install', libraryHeaderInstall)
+Default (libraryHeaderInstall)

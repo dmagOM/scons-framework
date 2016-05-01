@@ -1,0 +1,35 @@
+import os
+
+Import ('env')
+
+libraryName = 'mamac++'
+
+env = env.Clone()
+
+env.Append  (
+                LIBS    = [
+                            'm',
+                            'pthread',
+                            'mama',
+                          ],
+                LIBPATH = [
+                            '$MAMAINSTALL/lib',
+                          ],
+                CPPPATH = [
+                            '$LOCALINCLUDE',
+                            '/usr/include',
+                            '$MAMAINSTALL/include',
+                          ],
+            )
+
+libraryFiles =  [
+                    'mamac++.cpp',
+                ]
+
+staticLibrary  = env.StaticLibrary (libraryName, libraryFiles)
+sharedLibrary  = env.SharedLibrary (libraryName, libraryFiles)
+
+libraryInstall = env.Install ('$LIBINSTALL', [staticLibrary, sharedLibrary])
+
+Alias   ('mamac++-lib', libraryInstall)
+Default (libraryInstall)

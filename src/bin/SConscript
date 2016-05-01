@@ -1,0 +1,33 @@
+import os
+
+Import ('env')
+
+env = env.Clone()
+
+env.Append  (
+                LIBS    = [
+                            'm',
+                          ],
+                CPPPATH = [
+                            '$LOCALINCLUDE',
+                          ],
+                LIBPATH = [
+                            '$LIBINSTALL',
+                          ],
+            )
+
+no_build = []
+
+apps = Glob('*.c*')
+
+binaries = []
+
+for app in apps:
+    if app.rstr () not in no_build:
+        binary = os.path.splitext(app.rstr())[0]
+        binaries.append (env.Program (binary, app))
+
+appInstall = env.Install ('$BININSTALL', binaries)
+
+Alias   ('apps', appInstall)
+Default (appInstall)

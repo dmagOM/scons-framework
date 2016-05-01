@@ -1,0 +1,5 @@
+.sconsign.dblite
+build/*
+install/*
+site_scons/site_utils.pyc
+
